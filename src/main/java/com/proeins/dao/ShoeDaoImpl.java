@@ -41,14 +41,14 @@ public class ShoeDaoImpl implements ShoeDao {
 	public Shoe update(long id, Shoe shoe) throws ShoeNotFoundException {
 		Session session = sessionFactory.getCurrentSession();
 		Shoe originalShoeEntity = findById(id);
-		if (shoe.isEmpty() || shoe.getId() != null || shoe.getArticleNumber() != null) {
+		if (shoe.isEmpty()) {
 			throw new IllegalArgumentException("Invalid argument passed");
 		}
-		originalShoeEntity.setName((shoe.getName() == null) ? originalShoeEntity.getName() : shoe.getName());
-		originalShoeEntity.setBrand((shoe.getBrand() == null) ? originalShoeEntity.getBrand() : shoe.getBrand());
-		originalShoeEntity.setColor((shoe.getColor() == null) ? originalShoeEntity.getColor() : shoe.getColor());
-		originalShoeEntity.setSize((shoe.getSize() == null) ? originalShoeEntity.getSize() : shoe.getSize());
-		originalShoeEntity.setStock((shoe.getStock() == null) ? originalShoeEntity.getStock() : shoe.getStock());
+		originalShoeEntity.setName((shoe.getName() == null || shoe.getName().isEmpty()) ? originalShoeEntity.getName() : shoe.getName());
+		originalShoeEntity.setBrand((shoe.getBrand() == null || shoe.getBrand().isEmpty()) ? originalShoeEntity.getBrand() : shoe.getBrand());
+		originalShoeEntity.setColor((shoe.getColor() == null || shoe.getColor().isEmpty()) ? originalShoeEntity.getColor() : shoe.getColor());
+		originalShoeEntity.setSize((shoe.getSize() == null || shoe.getSize().isEmpty()) ? originalShoeEntity.getSize() : shoe.getSize());
+		originalShoeEntity.setStock((shoe.getStock() == null || shoe.getStock().isEmpty()) ? originalShoeEntity.getStock() : shoe.getStock());
 		session.flush();
 		return originalShoeEntity;
 	}

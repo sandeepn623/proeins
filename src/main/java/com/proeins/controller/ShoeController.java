@@ -2,8 +2,10 @@ package com.proeins.controller;
 
 import java.net.URI;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +21,7 @@ import com.proeins.model.Shoe;
 import com.proeins.service.ShoeService;
 
 @RestController
+@CrossOrigin(origins= {"https://9895fbf4.ap.ngrok.io"})
 public class ShoeController {
 
 	private ShoeService shoeService;
@@ -40,6 +43,7 @@ public class ShoeController {
 	/*---get all shoes or by Id, articleNumber, brand, name, color, stock---*/
 	@GetMapping("/shoe")
 	public ResponseEntity<List<Shoe>> searchShoes(@RequestParam(value = "search", required = false) String search) {
+		System.out.println("search: " + search);
         List<Shoe> shoes = shoeService.searchShoes(search);
         return  ResponseEntity.ok().body(shoes);
     }
